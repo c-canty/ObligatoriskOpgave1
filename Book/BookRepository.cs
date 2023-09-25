@@ -7,48 +7,120 @@ using Book;
 
 namespace Book
 {
-    internal class BookRepository : IBookRepository
+    public class BookRepository : IBookRepository
     {
         private static int _nextId = 1;
+       
+        private List<BookClass> _bookList = new List<BookClass>();
 
-
-        private List<BookClass> books = new List<BookClass>()
+        public BookRepository()
         {
-            new BookClass(_nextId, "Book1", 100),
-
-            new BookClass(null, "Book2", 200),
-            new BookClass(null, "Book3", 300),
-            new BookClass(null, "Book4", 400),
-            new BookClass(null, "Book5", 500),           
-        };
-
-
-
+            _bookList.Add(new BookClass() { Id = _nextId++, Title = "Book1", Price = 100});
+            _bookList.Add(new BookClass() { Id = _nextId++, Title = "Book2", Price = 200});
+            _bookList.Add(new BookClass() { Id = _nextId++, Title = "Book3", Price = 300});
+            _bookList.Add(new BookClass() { Id = _nextId++, Title = "Book4", Price = 400});
+            _bookList.Add(new BookClass() { Id = _nextId++, Title = "Book5", Price = 500});
+        }
 
 
         public BookClass Add(BookClass book)
         {
-            throw new NotImplementedException();
+            book.Validate();
+            book.Id = _nextId++;
+            _bookList.Add(book);
+            return book;           
         }
 
         public BookClass? Delete(int id)
         {
-            throw new NotImplementedException();
+            BookClass? book = GetById(id);
+            if (book == null)
+            {
+                return null;
+            }
+            _bookList.Remove(book);
+            return book;
+            
         }
 
-        public IEnumerable<BookClass> Get(int? id, string? title, int? price)
+        public IEnumerable<BookClass> Get(int? id, string? title, int? price, string? orderBy)
         {
-            throw new NotImplementedException();
+            IEnumerable<BookClass> books = _bookList;
+            if (id != null)
+            {
+                books = books.Where(b => b.Id == id);
+            }
+            if (title != null)
+            {
+                books = books.Where(b => b.Title == title);
+            }
+            if (price != null)
+            {
+                books = books.Where(b => b.Price == price);
+            }
+
+            if (orderBy != null)
+            {
+                orderBy = orderBy.ToLower();
+                switch (orderBy)
+                {
+                    case "id":
+
+                    case "id_asc":
+                        books = books.OrderBy(b => b.Id);
+                        break;
+
+                    case "id_desc":
+                        books = books.OrderByDescending(b => b.Id);
+                        break;
+
+                    case "title":
+
+                    case "title_asc":
+                        books = books.OrderBy(b => b.Title);
+                        break;
+
+                    case "title_desc":
+                        books = books.OrderByDescending(b => b.Title);
+                        break;
+
+                    case "price":
+
+                    case "price_asc":
+                        books = books.OrderBy(b => b.Price);
+                        break;
+
+                    case "price_desc":
+                        books = books.OrderByDescending(b => b.Price);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+
+            return books;
+
         }
 
         public BookClass? GetById(int id)
         {
-            throw new NotImplementedException();
+            return _bookList.FirstOrDefault(b => b.Id == id);
         }
 
         public BookClass? Update(int id, BookClass book)
         {
-            throw new NotImplementedException();
-        }
+            BookClass? bookToUpdate = GetById(id);
+            if (bookToUpdate == null)
+            {
+                return null;
+            }
+            bookToUpdate.Title = book.Title;
+            bookToUpdate.Price = book.Price;
+            bookToUpdate.Validate();
+            return bookToUpdate;
+        }   
+        
     }
 }

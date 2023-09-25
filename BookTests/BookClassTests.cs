@@ -88,5 +88,14 @@ namespace BookTest
             Assert.AreNotEqual(book.GetHashCode(), bookNoTitle.GetHashCode());
         }
 
+        [TestMethod]
+        public void TestDefaultConstructor()
+        {
+            BookClass book = new BookClass();
+            Assert.AreEqual(null, book.Id);
+            Assert.AreEqual(null, book.Title);
+            Assert.AreEqual(null, book.Price);
+        }
+
     }
 }

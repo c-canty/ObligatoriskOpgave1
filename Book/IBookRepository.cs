@@ -17,6 +17,6 @@ namespace Book
 
         BookClass? GetById(int id);
 
-        IEnumerable<BookClass> Get(int? id, string? title, int? price);
+        IEnumerable<BookClass> Get(int? id, string? title, int? price, string? orderBy);
     }
 }
