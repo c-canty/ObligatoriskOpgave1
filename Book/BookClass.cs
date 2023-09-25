@@ -1,16 +1,13 @@
-﻿namespace Book
-    public class Book
+﻿namespace Book;
+    public class BookClass
     {
         public int? Id { get; set; }
         public string? Title { get; set; }
         public int? Price { get; set; }
 
-        public Book()
-        {
+        public BookClass(){}
 
-        }
-
-        public Book(int? id, string? title, int? price)
+        public BookClass(int? id, string? title, int? price)
         {
             Id = id;
             Title = title;
@@ -54,7 +51,7 @@
         {
             if (obj == null) return false; // if obj is null
             if (obj.GetType() != this.GetType()) return false; // if obj is not a Book
-            Book book = (Book)obj; // cast obj to Book
+            BookClass book = (BookClass)obj; // cast obj to Book
             return (this.Id == book.Id) && (this.Title == book.Title) && (this.Price == book.Price); // compare the values of the two books
         }
 
@@ -63,4 +60,3 @@
             return HashCode.Combine(Id, Title, Price); // combine the hashcodes of the three values
         }
     }
-}

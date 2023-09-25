@@ -9,6 +9,14 @@ namespace Book
 {
     public interface IBookRepository
     {
-        Book Add(Book book);
+        BookClass Add(BookClass book);
+
+        BookClass? Update(int id, BookClass book);
+
+        BookClass? Delete(int id);
+
+        BookClass? GetById(int id);
+
+        IEnumerable<BookClass> Get(int? id, string? title, int? price);
     }
 }

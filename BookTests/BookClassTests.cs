@@ -1,18 +1,18 @@
-using BookLibrary;
+using Book;
 
 namespace BookTest
 {
     [TestClass]
     public class BookClassTests
     {
-        Book book = new Book(1, "Book1", 100);
-        Book bookNoTitle = new Book(1, null, 100);
-        Book bookShortTitle = new Book(1, "Bo", 100);
-        Book bookNoPrice = new Book(1, "Book1", null);
-        Book bookZeroPrice = new Book(1, "Book1", 0);
-        Book bookNegativePrice = new Book(1, "Book1", -1);
-        Book bookHighPrice = new Book(1, "Book1", 1201);
-        Book bookNoId = new Book(null, "Book1", 100);
+        BookClass book = new BookClass(1, "Book1", 100);
+        BookClass bookNoTitle = new BookClass(1, null, 100);
+        BookClass bookShortTitle = new BookClass(1, "Bo", 100);
+        BookClass bookNoPrice = new BookClass(1, "Book1", null);
+        BookClass bookZeroPrice = new BookClass(1, "Book1", 0);
+        BookClass bookNegativePrice = new BookClass(1, "Book1", -1);
+        BookClass bookHighPrice = new BookClass(1, "Book1", 1201);
+        BookClass bookNoId = new BookClass(null, "Book1", 100);
 
 
         [TestMethod]
@@ -83,7 +83,7 @@ namespace BookTest
         [TestMethod]
         public void TestGetHashCode()
         {
-            Book book2 = new Book(1, "Book1", 100);
+            BookClass book2 = new BookClass(1, "Book1", 100);
             Assert.AreEqual(book.GetHashCode(), book2.GetHashCode());
             Assert.AreNotEqual(book.GetHashCode(), bookNoTitle.GetHashCode());
         }
