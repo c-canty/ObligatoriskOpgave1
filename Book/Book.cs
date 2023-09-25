@@ -1,5 +1,4 @@
-﻿namespace BookLibrary
-{
+﻿namespace Book
     public class Book
     {
         public int? Id { get; set; }
