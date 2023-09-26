@@ -9,24 +9,24 @@ namespace Book
 {
     public class BookRepository : IBookRepository
     {
-        private static int _nextId = 1;
-       
-        private List<BookClass> _bookList = new List<BookClass>();
+        public static int nextId = 6;
+
+        public List<BookClass> _bookList = new List<BookClass>();
 
         public BookRepository()
         {
-            _bookList.Add(new BookClass() { Id = _nextId++, Title = "Book1", Price = 100});
-            _bookList.Add(new BookClass() { Id = _nextId++, Title = "Book2", Price = 200});
-            _bookList.Add(new BookClass() { Id = _nextId++, Title = "Book3", Price = 300});
-            _bookList.Add(new BookClass() { Id = _nextId++, Title = "Book4", Price = 400});
-            _bookList.Add(new BookClass() { Id = _nextId++, Title = "Book5", Price = 500});
+            _bookList.Add(new BookClass(1, "Book1", 100));
+            _bookList.Add(new BookClass(2, "Book2", 200));
+            _bookList.Add(new BookClass(3, "Book3", 300));
+            _bookList.Add(new BookClass(4, "Book4", 400));
+            _bookList.Add(new BookClass(5, "Book5", 500));
         }
 
 
         public BookClass Add(BookClass book)
         {
             book.Validate();
-            book.Id = _nextId++;
+            book.Id = nextId++;
             _bookList.Add(book);
             return book;           
         }
@@ -106,7 +106,7 @@ namespace Book
 
         public BookClass? GetById(int id)
         {
-            return _bookList.FirstOrDefault(b => b.Id == id);
+            return _bookList.Find(b => b.Id == id);
         }
 
         public BookClass? Update(int id, BookClass book)
